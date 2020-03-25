@@ -1,11 +1,18 @@
-const Sub = require('./sub');
+const Sum = require('./sum');
 const Mul = require('./mul');
 
-const factorial = function(num = 0) {
-  if (num === '0') return '1';
-  const fact = new Mul(num, factorial(new Sub(num, '1').result)).result;
-  console.log(`\nFactorial of ${num} is ${fact} \n `);
-  return fact;
+function fact(num) {
+  let rval = '1';
+  for (let i = '2'; i != new Sum(num, '1').result; i = new Sum(i, '1').result) {
+    rval = new Mul(rval, i).result;
+  }
+  return rval;
+}
+
+const main = function(num) {
+  for (let i = '1'; i != num; i = new Sum(i, '1').result) {
+    console.log(`Fact of ${i} is ${fact(i)}`);
+  }
 };
 
-console.log(factorial(process.argv[2]));
+main(process.argv[2]);
