@@ -9,11 +9,18 @@ const parseNumbers = (...numbers) => numbers.map(num => Array.from(num));
 
 class Sum {
   constructor(num1, num2) {
+    this.originalA = num1;
+    this.originalB = num2;
     this.a = num1;
     this.b = num2;
     this.solution = [];
     this.carry = 0;
     this.digit = 0;
+  }
+
+  restoreOriginalValues() {
+    this.a = this.originalA;
+    this.b = this.originalB;
   }
 
   formatInput() {
@@ -58,7 +65,7 @@ class Sum {
     return this.solution.join('');
   }
 
-  get result() {
+  performSum() {
     this.formatInput();
     while (this.largestNumber().length) {
       this.addLastDigits();
@@ -72,6 +79,10 @@ class Sum {
     }
     this.addLastCarry();
     return this.formatResult();
+  }
+
+  get result() {
+    return this.performSum();
   }
 }
 
